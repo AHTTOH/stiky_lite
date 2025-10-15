@@ -24,7 +24,9 @@ bld/
 # Build outputs
 build/
 hashes/
-*.zip
+
+# Ignore build zips but not release zip
+!StickyLite_Portable_net9_x64.zip
 
 # User-specific files
 *.rsuser
