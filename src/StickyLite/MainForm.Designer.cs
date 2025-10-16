@@ -29,7 +29,7 @@ namespace StickyLite
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.txtNote = new System.Windows.Forms.TextBox();
+            this.txtNote = new System.Windows.Forms.RichTextBox();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuFontIncrease = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFontDecrease = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,6 +37,10 @@ namespace StickyLite
             this.menuOpacity = new System.Windows.Forms.ToolStripMenuItem();
             this.trackOpacity = new System.Windows.Forms.TrackBar();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuBold = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItalic = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuUnderline = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1_2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuColorChange = new System.Windows.Forms.ToolStripMenuItem();
             this.menuColorPresets = new System.Windows.Forms.ToolStripMenuItem();
             this.menuColorCustom = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,7 +74,9 @@ namespace StickyLite
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
             this.txtNote.Padding = new System.Windows.Forms.Padding(0, 35, 0, 0);
-            this.txtNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtNote.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.txtNote.DetectUrls = false;
+            this.txtNote.EnableAutoDragDrop = false;
             this.txtNote.Size = new System.Drawing.Size(300, 200);
             this.txtNote.TabIndex = 0;
             this.txtNote.TextChanged += new System.EventHandler(this.txtNote_TextChanged);
@@ -83,13 +89,17 @@ namespace StickyLite
             this.toolStripSeparator1,
             this.menuOpacity,
             this.toolStripSeparator2,
+            this.menuBold,
+            this.menuItalic,
+            this.menuUnderline,
+            this.toolStripSeparator1_2,
             this.menuColorChange,
             this.toolStripSeparator3,
             this.menuTopMost,
             this.menuSave,
             this.menuExit});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(181, 170);
+            this.contextMenu.Size = new System.Drawing.Size(181, 236);
             // 
             // menuFontIncrease
             // 
@@ -138,6 +148,32 @@ namespace StickyLite
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // menuBold
+            // 
+            this.menuBold.Name = "menuBold";
+            this.menuBold.Size = new System.Drawing.Size(180, 22);
+            this.menuBold.Text = "굵게 (Ctrl+B)";
+            this.menuBold.Click += new System.EventHandler(this.menuBold_Click);
+            // 
+            // menuItalic
+            // 
+            this.menuItalic.Name = "menuItalic";
+            this.menuItalic.Size = new System.Drawing.Size(180, 22);
+            this.menuItalic.Text = "기울임 (Ctrl+I)";
+            this.menuItalic.Click += new System.EventHandler(this.menuItalic_Click);
+            // 
+            // menuUnderline
+            // 
+            this.menuUnderline.Name = "menuUnderline";
+            this.menuUnderline.Size = new System.Drawing.Size(180, 22);
+            this.menuUnderline.Text = "밑줄 (Ctrl+U)";
+            this.menuUnderline.Click += new System.EventHandler(this.menuUnderline_Click);
+            // 
+            // toolStripSeparator1_2
+            // 
+            this.toolStripSeparator1_2.Name = "toolStripSeparator1_2";
+            this.toolStripSeparator1_2.Size = new System.Drawing.Size(177, 6);
             // 
             // menuColorChange
             // 
@@ -325,7 +361,7 @@ namespace StickyLite
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtNote;
+        private System.Windows.Forms.RichTextBox txtNote;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem menuFontIncrease;
         private System.Windows.Forms.ToolStripMenuItem menuFontDecrease;
@@ -333,6 +369,10 @@ namespace StickyLite
         private System.Windows.Forms.ToolStripMenuItem menuOpacity;
         private System.Windows.Forms.TrackBar trackOpacity;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem menuBold;
+        private System.Windows.Forms.ToolStripMenuItem menuItalic;
+        private System.Windows.Forms.ToolStripMenuItem menuUnderline;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1_2;
         private System.Windows.Forms.ToolStripMenuItem menuColorChange;
         private System.Windows.Forms.ToolStripMenuItem menuColorPresets;
         private System.Windows.Forms.ToolStripMenuItem menuColorCustom;

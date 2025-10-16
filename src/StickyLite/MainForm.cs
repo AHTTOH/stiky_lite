@@ -86,9 +86,8 @@ namespace StickyLite
                 _config = _configManager.LoadConfig();
                 ApplyConfig();
 
-                // 노트 내용 로드
-                var noteContent = _noteStorage.LoadNote();
-                txtNote.Text = noteContent;
+                // 노트 내용 로드 (RTF 형식 지원)
+                _noteStorage.LoadNoteToRtf(txtNote);
 
                 // 아이콘 설정
                 this.Icon = CreateStickyNoteIcon();
@@ -215,6 +214,18 @@ namespace StickyLite
                         ChangeColorTheme();
                         e.Handled = true;
                         break;
+                    case Keys.B:
+                        ToggleBold();
+                        e.Handled = true;
+                        break;
+                    case Keys.I:
+                        ToggleItalic();
+                        e.Handled = true;
+                        break;
+                    case Keys.U:
+                        ToggleUnderline();
+                        e.Handled = true;
+                        break;
                 }
             }
         }
@@ -235,16 +246,16 @@ namespace StickyLite
         }
 
         /// <summary>
-        /// 노트 저장
+        /// 노트 저장 (RTF 형식)
         /// </summary>
         private void SaveNote()
         {
             try
             {
-                var success = _noteStorage.SaveNote(txtNote.Text);
+                var success = _noteStorage.SaveNoteAsRtf(txtNote);
                 if (success)
                 {
-                    _logger.Info("노트 저장 완료");
+                    _logger.Info("노트 저장 완료 (RTF 형식)");
                 }
                 else
                 {
@@ -586,6 +597,30 @@ namespace StickyLite
         }
 
         /// <summary>
+        /// 굵게 메뉴 클릭
+        /// </summary>
+        private void menuBold_Click(object? sender, EventArgs e)
+        {
+            ToggleBold();
+        }
+
+        /// <summary>
+        /// 기울임 메뉴 클릭
+        /// </summary>
+        private void menuItalic_Click(object? sender, EventArgs e)
+        {
+            ToggleItalic();
+        }
+
+        /// <summary>
+        /// 밑줄 메뉴 클릭
+        /// </summary>
+        private void menuUnderline_Click(object? sender, EventArgs e)
+        {
+            ToggleUnderline();
+        }
+
+        /// <summary>
         /// 폼 종료 시 최종 저장
         /// </summary>
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -694,6 +729,48 @@ namespace StickyLite
             catch (Exception ex)
             {
                 _logger.Error("커스텀 색상 선택 실패", ex);
+            }
+        }
+
+        /// <summary>
+        /// 굵게 토글
+        /// </summary>
+        private void ToggleBold()
+        {
+            if (txtNote.SelectionLength > 0)
+            {
+                Font currentFont = txtNote.SelectionFont ?? txtNote.Font;
+                FontStyle newStyle = currentFont.Style ^ FontStyle.Bold;
+                txtNote.SelectionFont = new Font(currentFont, newStyle);
+                _logger.Info("굵게 서식 적용");
+            }
+        }
+
+        /// <summary>
+        /// 기울임 토글
+        /// </summary>
+        private void ToggleItalic()
+        {
+            if (txtNote.SelectionLength > 0)
+            {
+                Font currentFont = txtNote.SelectionFont ?? txtNote.Font;
+                FontStyle newStyle = currentFont.Style ^ FontStyle.Italic;
+                txtNote.SelectionFont = new Font(currentFont, newStyle);
+                _logger.Info("기울임 서식 적용");
+            }
+        }
+
+        /// <summary>
+        /// 밑줄 토글
+        /// </summary>
+        private void ToggleUnderline()
+        {
+            if (txtNote.SelectionLength > 0)
+            {
+                Font currentFont = txtNote.SelectionFont ?? txtNote.Font;
+                FontStyle newStyle = currentFont.Style ^ FontStyle.Underline;
+                txtNote.SelectionFont = new Font(currentFont, newStyle);
+                _logger.Info("밑줄 서식 적용");
             }
         }
 

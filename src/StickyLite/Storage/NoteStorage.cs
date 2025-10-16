@@ -1,4 +1,5 @@
 using System.Text;
+using System.Windows.Forms;
 
 namespace StickyLite.Storage
 {
@@ -127,6 +128,88 @@ namespace StickyLite.Storage
                 // 파일 접근 실패 시 0 반환
             }
             return 0;
+        }
+
+        /// <summary>
+        /// RTF 형식으로 노트 저장
+        /// </summary>
+        public bool SaveNoteAsRtf(RichTextBox richTextBox)
+        {
+            try
+            {
+                var rtfPath = Path.ChangeExtension(_notePath, ".rtf");
+                var tempPath = rtfPath + ".tmp";
+
+                // RTF 내용을 임시 파일에 저장
+                richTextBox.SaveFile(tempPath, RichTextBoxStreamType.RichText);
+
+                // 파일 크기 확인
+                var fileInfo = new FileInfo(tempPath);
+                if (fileInfo.Length > MaxFileSizeBytes)
+                {
+                    File.Delete(tempPath);
+                    return false;
+                }
+
+                // 원자적 교체
+                if (File.Exists(rtfPath))
+                {
+                    File.Delete(rtfPath);
+                }
+                File.Move(tempPath, rtfPath);
+
+                // 기존 .txt 파일이 있다면 삭제 (형식 변경)
+                var txtPath = Path.ChangeExtension(_notePath, ".txt");
+                if (File.Exists(txtPath))
+                {
+                    File.Delete(txtPath);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // 임시 파일 정리
+                var tempPath = Path.ChangeExtension(_notePath, ".rtf.tmp");
+                if (File.Exists(tempPath))
+                {
+                    try { File.Delete(tempPath); } catch { }
+                }
+                throw new Exception($"RTF 저장 실패: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// RTF 형식으로 노트 로드
+        /// </summary>
+        public void LoadNoteToRtf(RichTextBox richTextBox)
+        {
+            try
+            {
+                var rtfPath = Path.ChangeExtension(_notePath, ".rtf");
+                var txtPath = Path.ChangeExtension(_notePath, ".txt");
+
+                if (File.Exists(rtfPath))
+                {
+                    // RTF 파일이 있으면 RTF로 로드
+                    richTextBox.LoadFile(rtfPath, RichTextBoxStreamType.RichText);
+                }
+                else if (File.Exists(txtPath))
+                {
+                    // RTF 파일이 없고 TXT 파일이 있으면 TXT로 로드
+                    var content = File.ReadAllText(txtPath, Encoding.UTF8);
+                    richTextBox.Text = content;
+                }
+                else
+                {
+                    // 파일이 없으면 빈 텍스트
+                    richTextBox.Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"RTF 로드 실패: {ex.Message}", ex);
+            }
         }
     }
 }
