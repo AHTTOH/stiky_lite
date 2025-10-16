@@ -1,0 +1,6 @@
+﻿# StickyLite SHA256 해시
+# 생성일시: 2025-10-15 11:27:22
+
+@{Algorithm=SHA256; Hash=45614DE13398A6076D80996518ACE3D9E16EBCDB3ADADF729A007516DC656C70; Path=C:\Users\OK\Desktop\야매스티커노트\build\StickyLite_Portable_net9_x64\StickyLite.exe}.Hash  StickyLite_Portable_net9_x64\StickyLite.exe
+
+.Hash  StickyLite_Portable_net9_x64.zip
