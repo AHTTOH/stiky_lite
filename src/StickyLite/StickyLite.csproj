@@ -8,12 +8,12 @@
     <ApplicationIcon>Resources\app.ico</ApplicationIcon>
     <Company>StickyLite</Company>
     <Product>StickyLite Portable</Product>
-    <Version>2.1.0</Version>
+    <Version>2.1.2</Version>
     <AssemblyTitle>StickyLite Portable</AssemblyTitle>
     <AssemblyDescription>Portable sticky note application for Windows</AssemblyDescription>
     <AssemblyCopyright>Copyright © 2024</AssemblyCopyright>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
+    <AssemblyVersion>2.1.2.0</AssemblyVersion>
+    <FileVersion>2.1.2.0</FileVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>

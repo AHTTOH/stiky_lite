@@ -211,8 +211,12 @@ namespace StickyLite
                         e.Handled = true;
                         break;
                     case Keys.C:
-                        ChangeColorTheme();
-                        e.Handled = true;
+                        if (e.Shift)
+                        {
+                            ChangeColorTheme();
+                            e.Handled = true;
+                        }
+                        // Ctrl+C는 기본 복사 기능 사용
                         break;
                     case Keys.B:
                         ToggleBold();
